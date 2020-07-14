@@ -1,0 +1,7 @@
+quarkus:
+  http:
+    port: 8081
+worker:
+  taskdefname: 'test_task'
+  threadcount: 2
+  serverurl: 'http://localhost:8080/api/'
