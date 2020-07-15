@@ -12,18 +12,18 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class TaskRunnerConfiguration {
-    private final WorkerProperties configuration;
+    private final WorkerProperties props;
     private final TestWorker worker;
 
     private TaskClient getTaskClient() {
         final var taskClient = new TaskClient();
-        taskClient.setRootURI(configuration.getServerurl());
+        taskClient.setRootURI(props.getServerurl());
         return taskClient;
     }
 
     private TaskRunnerConfigurer getTaskRunnerConfigurer() {
         return new TaskRunnerConfigurer.Builder(getTaskClient(), List.of(worker))
-                .withThreadCount(configuration.getThreadcount())
+                .withThreadCount(props.getThreadcount())
                 .build();
     }
 

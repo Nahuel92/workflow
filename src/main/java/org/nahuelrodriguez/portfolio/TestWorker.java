@@ -11,17 +11,15 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @RequiredArgsConstructor
 public class TestWorker implements Worker {
-    private final WorkerProperties configuration;
+    private final WorkerProperties props;
 
     @Override
     public String getTaskDefName() {
-        return configuration.getTaskdefname();
+        return props.getTaskdefname();
     }
 
     @Override
     public TaskResult execute(final Task task) {
-        System.out.println(task.getInputData());
-
         final var result = new TaskResult();
         result.setStatus(TaskResult.Status.COMPLETED);
         return result;
