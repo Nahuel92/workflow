@@ -3,17 +3,15 @@ package org.nahuelrodriguez.portfolio;
 import com.netflix.conductor.client.worker.Worker;
 import com.netflix.conductor.common.metadata.tasks.Task;
 import com.netflix.conductor.common.metadata.tasks.TaskResult;
-import org.nahuelrodriguez.portfolio.configuration.WorkerConfiguration;
+import lombok.RequiredArgsConstructor;
+import org.nahuelrodriguez.portfolio.properties.WorkerProperties;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
+@RequiredArgsConstructor
 public class TestWorker implements Worker {
-    private final WorkerConfiguration configuration;
-
-    public TestWorker(final WorkerConfiguration configuration) {
-        this.configuration = configuration;
-    }
+    private final WorkerProperties configuration;
 
     @Override
     public String getTaskDefName() {
@@ -22,7 +20,10 @@ public class TestWorker implements Worker {
 
     @Override
     public TaskResult execute(final Task task) {
-        System.out.println(getTaskDefName());
-        return null;
+        System.out.println(task.getInputData());
+
+        final var result = new TaskResult();
+        result.setStatus(TaskResult.Status.COMPLETED);
+        return result;
     }
 }
